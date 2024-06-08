@@ -1,4 +1,4 @@
-name: "Autopopulate your contribution graph"
+name: "Autopopulate contribution graph"
 author: "KhulnaSoft DevOps <info@khulnasoft.com>"
 description: "This action will automatically push empty commits to one of your GitHub repos."
 runs:
