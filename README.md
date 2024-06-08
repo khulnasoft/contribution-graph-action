@@ -1,205 +1,183 @@
-# Create a JavaScript Action
+<p align="center">
+  <img width="150px" src="./.github/images/cover.png">
+</p>
 
-[![GitHub Super-Linter](https://github.com/actions/javascript-action/actions/workflows/linter.yml/badge.svg)](https://github.com/super-linter/super-linter)
-![CI](https://github.com/actions/javascript-action/actions/workflows/ci.yml/badge.svg)
+<h1 align="center">
+  Contribution Graph Action
+</h1>
 
-Use this template to bootstrap the creation of a JavaScript action. :rocket:
+<p align="center">
+  <a href="https://github.com/khulnasoft/contribution-graph-action/actions?query=workflow%3Abuild">
+    <img src="https://github.com/khulnasoft/contribution-graph-action/workflows/build/badge.svg">
+  </a>
 
-This template includes compilation support, tests, a validation workflow,
-publishing, and versioning guidance.
+  <a href="https://github.com/khulnasoft/contribution-graph-action/actions?query=workflow%3Atests">
+    <img src="https://github.com/khulnasoft/contribution-graph-action/workflows/tests/badge.svg">
+  </a>
 
-If you are new, there's also a simpler introduction in the
-[Hello world JavaScript action repository](https://github.com/actions/hello-world-javascript-action).
+  <a href="https://github.com/khulnasoft/contribution-graph-action/actions?query=workflow%3Aaudit">
+    <img src="https://github.com/khulnasoft/contribution-graph-action/workflows/audit/badge.svg">
+  </a>
 
-## Create Your Own Action
+  <a href="https://github.com/marketplace/actions/autopopulate-your-contribution-graph">
+    <img src="https://img.shields.io/badge/action-marketplace-orange?logo=github">
+  </a>
 
-To create your own action, you can use this repository as a template! Just
-follow the below instructions:
+  <a href="https://github.com/khulnasoft/contribution-graph-action/releases">
+    <img src="https://img.shields.io/github/v/release/khulnasoft/contribution-graph-action.svg?logo=github">
+  </a>
+</p>
 
-1. Click the **Use this template** button at the top of the repository
-1. Select **Create a new repository**
-1. Select an owner and name for your new repository
-1. Click **Create repository**
-1. Clone your new repository
+> Maybe most of your coding happens on another version control host, like GitLab or Bitbucket. Maybe your company uses GitHub Enterprise but hasn't enabled [unified contributions](https://docs.github.com/en/enterprise-server@latest/admin/configuration/configuring-github-connect/enabling-unified-contributions-for-your-enterprise). Maybe you're looking for a new software development job and are worried that recruiters will prejudge you by your scarce contribution graph.  
+> Or maybe you have [other reasons](https://twitter.com/jacobmparis/status/1265740598277025792). Whatever the case may be, you've come to the right place.
 
-> [!IMPORTANT]
->
-> Make sure to remove or update the [`CODEOWNERS`](./CODEOWNERS) file! For
-> details on how to use this file, see
-> [About code owners](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners).
+## Quick start without leaving your browser ⚡
 
-## Initial Setup
+1. [Create a new repo](https://github.com/new) (preferably private unless you have no shame)
+1. Click on **Create a new file**  
+   ![](./.github/images/create-new-file.png)
+1. In the **Name your file...** field, type in `.github/workflows/main.yml`
+   ![](./.github/images/name-new-file.png)
+1. Paste in one of the YAML file contents below, depending on what you want to do. Be sure to update `GIT_EMAIL`.
+1. Click the **Commit new file** button at the bottom of the page. You're all set!
+   - Note that you must enable the option below in your contribution settings for private commits to count on the graph.
+     ![](.github/images/private-contributions.png)
 
-After you've cloned the repository to your local machine or codespace, you'll
-need to perform some initial setup steps before you can develop your action.
+If you change your mind about these commits later, you can delete the repository and they'll disappear from your contribution graph.
 
-> [!NOTE]
->
-> You'll need to have a reasonably modern version of
-> [Node.js](https://nodejs.org) handy. If you are using a version manager like
-> [`nodenv`](https://github.com/nodenv/nodenv) or
-> [`nvm`](https://github.com/nvm-sh/nvm), you can run `nodenv install` in the
-> root of your repository to install the version specified in
-> [`package.json`](./package.json). Otherwise, 20.x or later should work!
+### Push a commit to GitHub once a day 🍺
 
-1. :hammer_and_wrench: Install the dependencies
+```yml
+# .github/workflows/main.yml
 
-   ```bash
-   npm install
-   ```
+on:
+  schedule:
+    - cron: "0 12 * * *" # every day at noon
 
-1. :building_construction: Package the JavaScript for distribution
-
-   ```bash
-   npm run bundle
-   ```
-
-1. :white_check_mark: Run the tests
-
-   ```bash
-   $ npm test
-
-   PASS  ./index.test.js
-     ✓ throws invalid number (3ms)
-     ✓ wait 500 ms (504ms)
-     ✓ test runs (95ms)
-
-   ...
-   ```
-
-## Update the Action Metadata
-
-The [`action.yml`](action.yml) file defines metadata about your action, such as
-input(s) and output(s). For details about this file, see
-[Metadata syntax for GitHub Actions](https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions).
-
-When you copy this repository, update `action.yml` with the name, description,
-inputs, and outputs for your action.
-
-## Update the Action Code
-
-The [`src/`](./src/) directory is the heart of your action! This contains the
-source code that will be run when your action is invoked. You can replace the
-contents of this directory with your own code.
-
-There are a few things to keep in mind when writing your action code:
-
-- Most GitHub Actions toolkit and CI/CD operations are processed asynchronously.
-  In `main.js`, you will see that the action is run in an `async` function.
-
-  ```javascript
-  const core = require('@actions/core')
-  //...
-
-  async function run() {
-    try {
-      //...
-    } catch (error) {
-      core.setFailed(error.message)
-    }
-  }
-  ```
-
-  For more information about the GitHub Actions toolkit, see the
-  [documentation](https://github.com/actions/toolkit/blob/master/README.md).
-
-So, what are you waiting for? Go ahead and start customizing your action!
-
-1. Create a new branch
-
-   ```bash
-   git checkout -b releases/v1
-   ```
-
-1. Replace the contents of `src/` with your action code
-1. Add tests to `__tests__/` for your source code
-1. Format, test, and build the action
-
-   ```bash
-   npm run all
-   ```
-
-   > [!WARNING]
-   >
-   > This step is important! It will run [`ncc`](https://github.com/vercel/ncc)
-   > to build the final JavaScript action code with all dependencies included.
-   > If you do not run this step, your action will not work correctly when it is
-   > used in a workflow. This step also includes the `--license` option for
-   > `ncc`, which will create a license file for all of the production node
-   > modules used in your project.
-
-1. Commit your changes
-
-   ```bash
-   git add .
-   git commit -m "My first action is ready!"
-   ```
-
-1. Push them to your repository
-
-   ```bash
-   git push -u origin releases/v1
-   ```
-
-1. Create a pull request and get feedback on your action
-1. Merge the pull request into the `main` branch
-
-Your action is now published! :rocket:
-
-For information about versioning your action, see
-[Versioning](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md)
-in the GitHub Actions toolkit.
-
-## Validate the Action
-
-You can now validate the action by referencing it in a workflow file. For
-example, [`ci.yml`](./.github/workflows/ci.yml) demonstrates how to reference an
-action in the same repository.
-
-```yaml
-steps:
-  - name: Checkout
-    id: checkout
-    uses: actions/checkout@v3
-
-  - name: Test Local Action
-    id: test-action
-    uses: ./
-    with:
-      milliseconds: 1000
-
-  - name: Print Output
-    id: output
-    run: echo "${{ steps.test-action.outputs.time }}"
+jobs:
+  single-commit:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: khulnasoft/contribution-graph-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GIT_EMAIL: you@youremail.com # replace me
 ```
 
-For example workflow runs, check out the
-[Actions tab](https://github.com/actions/javascript-action/actions)! :rocket:
+If you need help with cron job syntax, [crontab guru](https://crontab.guru/) is a great resource.
 
-## Usage
+### Backfill a year of commits whenever you push to GitHub 🍻
 
-After testing, you can create version tag(s) that developers can use to
-reference different stable versions of your action. For more information, see
-[Versioning](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md)
-in the GitHub Actions toolkit.
+This rolls a pseudorandom number generator between 1 and 5 (inclusive) to determine how many commits to make per-day.
 
-To include the action in a workflow in another repository, you can use the
-`uses` syntax with the `@` symbol to reference a specific branch, tag, or commit
-hash.
+```yml
+# .github/workflows/main.yml
 
-```yaml
-steps:
-  - name: Checkout
-    id: checkout
-    uses: actions/checkout@v4
+on: push
 
-  - name: Run my Action
-    id: run-action
-    uses: actions/javascript-action@v1 # Commit with the `v1` tag
-    with:
-      milliseconds: 1000
-
-  - name: Print Output
-    id: output
-    run: echo "${{ steps.run-action.outputs.time }}"
+jobs:
+  backfill-commits:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: khulnasoft/contribution-graph-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GIT_EMAIL: you@youremail.com # replace me
+          MAX_DAYS: 365
+          MIN_COMMITS_PER_DAY: 1
+          MAX_COMMITS_PER_DAY: 5
 ```
+
+Keep reading for more cool stuff like:
+
+- skipping weekends/weekdays
+- backfilling specific time periods
+- custom commit messages
+- and more!
+
+## Environment variables 🌳
+
+| Key                   | Description                                                                                                                    | Default value                                         | Required? |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------- | --------- |
+| `GITHUB_TOKEN`        | Allows this GitHub Action to make commits for you. Simply pass in `${{ secrets.GITHUB_TOKEN }}`. [Read more](#github_token-).  |                                                       | 🟩        |
+| `GIT_EMAIL`           | An email address associated with your GitHub account. Without this, contributions won't show up. [Read more](#git_email-).     |                                                       | 🟩        |
+| `GIT_BRANCH`          | Must either be the default branch or `gh-pages` for contributions to show up.                                                  | The branch that triggered this Github Action          |           |
+| `GIT_COMMIT_MESSAGE`  | The message to use for commits made by this GitHub Action.                                                                     | `chore(actions): empty commit for contribution graph` |           |
+| `ORIGIN_TIMESTAMP`    | The unix timestamp to start commits on. If you set `MAX_DAYS` greater than 1, commits will be made on days prior to this time. | The current timestamp                                 |           |
+| `MAX_DAYS`            | The maximum integer number of days to commit on. If you want to backfill a year of commits, set this to `365`.                 | `1`                                                   |           |
+| `MIN_COMMITS_PER_DAY` | The minimum integer number of commits to make per day (inclusive). Used by a pseudo-RNG.                                       | `1`                                                   |           |
+| `MAX_COMMITS_PER_DAY` | The maximum integer number of commits to make per day (inclusive). Used by a pseudo-RNG.                                       | `1`                                                   |           |
+| `INCLUDE_WEEKDAYS`    | A boolean indicating whether or not to make commits on weekdays.                                                               | `true`                                                |           |
+| `INCLUDE_WEEKENDS`    | A boolean indicating whether or not to make commits on weekends.                                                               | `true`                                                |           |
+| `FORCE_PUSH`          | A boolean indicating whether or not to force push. **WARNING:** Setting this to `true` will clear out your repo on each run!   | `false`                                               |           |
+
+### Advanced environment variables 🧙‍♂️
+
+<details>
+
+<summary>There's also some advanced environment variables you can provide. Click here!</summary>
+
+Only set these if you know what you're doing:
+
+| Key                 | Description                                                                  | Default value                                                     | Required? |
+| ------------------- | ---------------------------------------------------------------------------- | ----------------------------------------------------------------- | --------- |
+| `GIT_HOST`          | You may be able to override this to support a GitHub Enterprise environment. | `github.com`                                                      |           |
+| `GIT_SSH_COMMAND`   |                                                                              | `ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no` |           |
+| `GITHUB_ACTOR`      |                                                                              | Set by the GitHub Actions runner                                  |           |
+| `GITHUB_REPOSITORY` |                                                                              | Set by the GitHub Actions runner                                  |           |
+
+</details>
+
+## How do I know this is secure? 🔒
+
+Explore the [code](src/index.js)! It's tiny and there aren't many dependencies.
+
+Speaking of dependencies, all production npm dependencies used by this GitHub Action are [automatically audited](./.github/workflows/audit.yml) for vulnerabilities. If the badge at the top of this README is green, you're good to go.
+
+If you're still worried about malicious code in this repository, GitHub recommends always using a specific version of any GitHub Actions you add to your repositories. [Read more](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepsuses).
+
+```diff
+- uses: khulnasoft/contribution-graph-action@v2
++ uses: khulnasoft/contribution-graph-action@2.0.0
+```
+
+As far as data security, there's two sensitive pieces of data that this Action handles:
+
+- [`GITHUB_TOKEN`](#github_token-)
+- [`GIT_EMAIL`](#git_email-)
+
+### `GITHUB_TOKEN` 🔑
+
+GitHub has [a great article](https://docs.github.com/en/actions/security-guides/automatic-token-authentication#using-the-github_token-in-a-workflow) about the token. It's the standard way that all GitHub Actions interact with GitHub on your behalf. The permissions of this token are both short-lived and scoped to one repo only.
+
+You don't need to create this secret yourself; GitHub handles that for you. All you need to do is provide the token in your workflow, job, or step:
+
+```yml
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```
+
+#### Getting 403 errors? ❌
+
+Make sure your token has [write permission for the `contents` scope](https://docs.github.com/en/actions/using-jobs/assigning-permissions-to-jobs). If you're using the examples in this README, this is already done for you.
+
+You can alternatively set this as a repo-level default:
+
+![](./.github/images/token-permissions.png)
+
+### `GIT_EMAIL` 📧
+
+This GitHub Action requires an email associated with your GitHub account. If you provide a random or throwaway email, contributions won't show up on your GitHub profile. [Read more](https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-github-profile/managing-contribution-settings-on-your-profile/why-are-my-contributions-not-showing-up-on-my-profile#you-havent-added-your-local-git-commit-email-to-your-profile).
+
+Chances are, your email is already public if you're making commits with it. But if you're concerned about privacy, you can do either of the following:
+
+- [Add your email as a secret](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository) and pass it in the same way as the `GITHUB_TOKEN`
+- [Use your GitHub-provided `noreply` email address](https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-personal-account-on-github/managing-email-preferences/setting-your-commit-email-address#about-commit-email-addresses)
+
+## Contribute 👪
+
+PRs are welcome! Please read the [contributing guide](.github/CONTRIBUTING.md). This project is [MIT](LICENSE) licensed.
