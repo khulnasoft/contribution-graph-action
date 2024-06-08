@@ -1,6 +1,7 @@
 {
   "name": "javascript-action",
   "description": "GitHub Actions JavaScript Template",
+  "type": "module",
   "version": "0.0.0",
   "author": "",
   "private": true,
@@ -24,16 +25,8 @@
     "node": ">=20"
   },
   "scripts": {
-    "bundle": "npm run format:write && npm run package",
-    "ci-test": "npx jest",
-    "coverage": "npx make-coverage-badge --output-path ./badges/coverage.svg",
-    "format:write": "npx prettier --write .",
-    "format:check": "npx prettier --check .",
-    "lint": "npx eslint . -c ./.github/linters/.eslintrc.yml",
-    "package": "npx ncc build src/index.js -o dist --source-map --license licenses.txt",
-    "package:watch": "npm run package -- --watch",
-    "test": "npx jest",
-    "all": "npm run format:write && npm run lint && npm run test && npm run coverage && npm run package"
+    "start": "node --experimental-top-level-await --experimental-specifier-resolution=node src",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest"
   },
   "license": "MIT",
   "eslintConfig": {
