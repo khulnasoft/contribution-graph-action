@@ -19,7 +19,7 @@
     <img src="https://github.com/khulnasoft/contribution-graph-action/workflows/audit/badge.svg">
   </a>
 
-  <a href="https://github.com/marketplace/actions/contribution-graph-action">
+  <a href="https://github.com/marketplace/actions/autopopulate-contribution-graph">
     <img src="https://img.shields.io/badge/action-marketplace-orange?logo=github">
   </a>
 
