@@ -141,8 +141,7 @@ Speaking of dependencies, all production npm dependencies used by this GitHub Ac
 If you're still worried about malicious code in this repository, GitHub recommends always using a specific version of any GitHub Actions you add to your repositories. [Read more](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepsuses).
 
 ```diff
-- uses: khulnasoft/contribution-graph-action@v2
-+ uses: khulnasoft/contribution-graph-action@2.0.0
+uses: khulnasoft/contribution-graph-action@2.0.0
 ```
 
 As far as data security, there's two sensitive pieces of data that this Action handles:
